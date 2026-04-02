@@ -47,6 +47,7 @@
             position: relative;
             padding-left: 20px;
             box-sizing: border-box;
+            margin-bottom: 50px;
         }
 
         /* Timeline vertical line */
@@ -62,9 +63,10 @@
 
         .roadmap-item {
             position: relative;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             padding-left: 20px;
-            animation: fadeIn 0.8s ease-out;
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
         }
 
         /* Timeline dot */
@@ -82,120 +84,229 @@
             z-index: 10;
         }
 
-        .roadmap-quarter {
+        .roadmap-phase {
             font-family: 'Orbitron', sans-serif;
             font-size: 14px;
             color: var(--primary);
-            margin-bottom: 5px;
-            display: block;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .roadmap-card {
             background: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 15px;
+            border-radius: 16px;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .roadmap-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .roadmap-card h3 {
-            margin: 0 0 10px 0;
-            font-size: 16px;
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+        }
+
+        .roadmap-card .tagline {
+            font-size: 13px;
+            color: var(--secondary-text);
+            margin-bottom: 15px;
+            display: block;
         }
 
         .roadmap-card ul {
             margin: 0;
-            padding-left: 15px;
-            list-style-type: square;
+            padding-left: 0;
+            list-style-type: none;
         }
 
         .roadmap-card li {
-            font-size: 13px;
+            font-size: 13.5px;
             color: #d1d1d1;
-            margin-bottom: 5px;
-            line-height: 1.4;
+            margin-bottom: 10px;
+            line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .roadmap-card li::before {
+            content: '•';
+            color: var(--primary);
+            font-weight: bold;
         }
 
         .status {
             font-size: 10px;
             text-transform: uppercase;
             font-weight: bold;
-            padding: 2px 8px;
-            border-radius: 4px;
-            margin-left: 10px;
+            padding: 3px 10px;
+            border-radius: 6px;
             vertical-align: middle;
         }
 
         .status-done { background: rgba(0, 255, 0, 0.2); color: #00FF00; }
-        .status-inprogress { background: rgba(255, 215, 0, 0.2); color: var(--primary); }
-        .status-next { background: rgba(255, 255, 255, 0.1); color: var(--secondary-text); }
+        .status-active { background: rgba(255, 215, 0, 0.2); color: var(--primary); animation: pulse 2s infinite; }
+        .status-future { background: rgba(255, 255, 255, 0.1); color: var(--secondary-text); }
+
+        .btn-join {
+            display: inline-block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: linear-gradient(135deg, var(--primary), #FFB700);
+            color: #000;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+        }
+
+        .btn-join:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+        }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateX(20px); }
-            to { opacity: 1; transform: translateX(0); }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; text-shadow: 0 0 5px var(--primary); }
+            50% { opacity: 0.7; text-shadow: 0 0 15px var(--primary); }
+            100% { opacity: 1; text-shadow: 0 0 5px var(--primary); }
         }
 
         .roadmap-item:nth-child(1) { animation-delay: 0.1s; }
-        .roadmap-item:nth-child(2) { animation-delay: 0.3s; }
-        .roadmap-item:nth-child(3) { animation-delay: 0.5s; }
-        .roadmap-item:nth-child(4) { animation-delay: 0.7s; }
+        .roadmap-item:nth-child(2) { animation-delay: 0.2s; }
+        .roadmap-item:nth-child(3) { animation-delay: 0.3s; }
+        .roadmap-item:nth-child(4) { animation-delay: 0.4s; }
+        .roadmap-item:nth-child(5) { animation-delay: 0.5s; }
+        .roadmap-item:nth-child(6) { animation-delay: 0.6s; }
 
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="logo">2026 ROADMAP</div>
+        <div class="logo">OFFICIAL ROADMAP</div>
     </div>
 
     <div class="roadmap-container">
-        <!-- Q1 -->
+        <!-- 2020 - 2022 -->
         <div class="roadmap-item">
-            <span class="roadmap-quarter">Q1 2026 <span class="status status-done">COMPLETED</span></span>
+            <div class="roadmap-phase">
+                <span>2020 - 2022</span>
+                <span class="status status-done">COMPLETED</span>
+            </div>
             <div class="roadmap-card">
-                <h3>Foundation Phase</h3>
+                <h3>Genesis Phase</h3>
+                <span class="tagline">Initial architectural design, whitepaper development, and core protocol research.</span>
                 <ul>
-                    <li>Project YETCOIN conceptualization</li>
-                    <li>Core mining engine development</li>
-                    <li>Security architecture implementation</li>
+                    <li>Concept Whitepaper</li>
+                    <li>Team Assembly</li>
+                    <li>Core Engine R&D</li>
                 </ul>
             </div>
         </div>
 
-        <!-- Q2 -->
+        <!-- 2023 - 2024 -->
         <div class="roadmap-item">
-            <span class="roadmap-quarter">Q2 2026 <span class="status status-inprogress">LAUNCH</span></span>
+            <div class="roadmap-phase">
+                <span>2023 - 2024</span>
+                <span class="status status-done">COMPLETED</span>
+            </div>
             <div class="roadmap-card">
-                <h3>Telegram Ecosystem Expansion</h3>
+                <h3>Infrastructure & Testing</h3>
+                <span class="tagline">Private beta testing, security audits, and Telegram Mini App initial integration.</span>
                 <ul>
-                    <li>Official Bot launch & public beta</li>
-                    <li>Community building & referrals</li>
-                    <li>Dynamic mining tiers rollout</li>
+                    <li>Security Audits</li>
+                    <li>Beta Launch</li>
+                    <li>Telegram Bot v1</li>
                 </ul>
             </div>
         </div>
 
-        <!-- Q3 -->
+        <!-- 2025 -->
         <div class="roadmap-item">
-            <span class="roadmap-quarter">Q3 2026 <span class="status status-next">UPCOMING</span></span>
+            <div class="roadmap-phase">
+                <span>2025</span>
+                <span class="status status-active">ACTIVE NOW</span>
+            </div>
             <div class="roadmap-card">
-                <h3>Tokenomics & Utility</h3>
+                <h3>The Great Airdrop</h3>
+                <span class="tagline">Global community expansion through the massive $YETC Airdrop and staking rewards.</span>
                 <ul>
-                    <li>Proof-of-Engagement (PoE) full release</li>
-                    <li>Internal marketplace for miners</li>
-                    <li>Partnership ecosystem launch</li>
+                    <li>Public Mining App</li>
+                    <li>Referral Engine</li>
+                    <li>Staking v1.0</li>
                 </ul>
             </div>
         </div>
 
-        <!-- Q4 -->
+        <!-- 2026 - 2028 -->
         <div class="roadmap-item">
-            <span class="roadmap-quarter">Q4 2026 <span class="status status-next">GOAL</span></span>
+            <div class="roadmap-phase">
+                <span>2026 - 2028</span>
+                <span class="status status-future">UPCOMING</span>
+            </div>
             <div class="roadmap-card">
-                <h3>Decentralized Future</h3>
+                <h3>Ecosystem Expansion</h3>
+                <span class="tagline">Strategic partnerships with major crypto platforms and implementation of YetPay.</span>
                 <ul>
-                    <li>YETCOIN TGE (Token Generation Event)</li>
-                    <li>Major exchange listings</li>
-                    <li>DAO governance for community</li>
+                    <li>YetPay Launch</li>
+                    <li>Mainnet Pilot</li>
+                    <li>Tier-1 Exchange Listings</li>
                 </ul>
+                <a href="https://t.me/yetcoinsbot/YETC?startapp=6734633336" class="btn-join">Join Pre-Launch</a>
+            </div>
+        </div>
+
+        <!-- 2029 -->
+        <div class="roadmap-item">
+            <div class="roadmap-phase">
+                <span>2029</span>
+                <span class="status status-future">STAGING</span>
+            </div>
+            <div class="roadmap-card">
+                <h3>GLOBAL LAUNCH</h3>
+                <span class="tagline">The monumental $YETC Mainnet Launch and listing on Top 5 Global Exchanges.</span>
+                <ul>
+                    <li>Mainnet Launch</li>
+                    <li>Cross-chain Bridge</li>
+                    <li>DAO Governance</li>
+                </ul>
+                <a href="https://t.me/yetcoinsbot/YETC?startapp=6734633336" class="btn-join">Join Pre-Launch</a>
+            </div>
+        </div>
+
+        <!-- 2030 - 2035 -->
+        <div class="roadmap-item">
+            <div class="roadmap-phase">
+                <span>2030 - 2035</span>
+                <span class="status status-future">LONG-TERM VISION</span>
+            </div>
+            <div class="roadmap-card">
+                <h3>Hyper-Growth & Vision</h3>
+                <span class="tagline">Becoming the dominant ecosystem for decentralized social finance and AI integrations.</span>
+                <ul>
+                    <li>AI Trading Tools</li>
+                    <li>Global Merchant Ads</li>
+                    <li>Web3 OS Integration</li>
+                </ul>
+                <a href="https://t.me/yetcoinsbot/YETC?startapp=6734633336" class="btn-join">Join Pre-Launch</a>
             </div>
         </div>
     </div>
