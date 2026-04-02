@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Mine</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FFD700;
+            --background: #0B0B0F;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text: #FFFFFF;
+            --secondary-text: #A0A0A0;
+            --accent: #FF8C00;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            margin-top: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .step-container {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 10px;
+        }
+
+        .step {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+            animation: slideIn 0.5s ease-out backwards;
+        }
+
+        .step-num {
+            background: var(--primary);
+            color: black;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            font-size: 14px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .step-content h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            color: var(--primary);
+            margin: 0 0 5px 0;
+        }
+
+        .step-content p {
+            font-size: 14px;
+            color: var(--secondary-text);
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .step:nth-child(1) { animation-delay: 0.1s; }
+        .step:nth-child(2) { animation-delay: 0.3s; }
+        .step:nth-child(3) { animation-delay: 0.5s; }
+        .step:nth-child(4) { animation-delay: 0.7s; }
+
+        .mining-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: black;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 400px;
+            margin-top: 10px;
+            box-shadow: 0 10px 20px rgba(255, 140, 0, 0.3);
+            text-transform: uppercase;
+        }
+
+        .mining-btn:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">HOW TO MINE</div>
+    </div>
+
+    <div class="step-container">
+        <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+                <h3>Launch the Web App</h3>
+                <p>Click the "Mine YETC" button to start the YETCOIN mining journey.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+                <h3>Start Tapping</h3>
+                <p>Simple and fun. Tap on the YETCOIN logo to generate your digital rewards.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+                <h3>Upgrade Your Tiers</h3>
+                <p>Use your earned coins to upgrade from Starter to Whale for massive multi-taps.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+                <h3>Stay Consistent</h3>
+                <p>The more you mine, the more YETCOIN value you build over time. Don't stop!</p>
+            </div>
+        </div>
+    </div>
+
+    <button class="mining-btn" onclick="window.Telegram.WebApp.close()">Got it!</button>
+
+    <script>
+        window.Telegram.WebApp.ready();
+        window.Telegram.WebApp.expand();
+        window.Telegram.WebApp.setHeaderColor('#0B0B0F');
+        window.Telegram.WebApp.setBackgroundColor('#0B0B0F');
+    </script>
+</body>
+</html>

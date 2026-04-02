@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About YETCOIN</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FFD700;
+            --background: #0B0B0F;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text: #FFFFFF;
+            --secondary-text: #A0A0A0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        .header {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--primary);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            margin-bottom: 5px;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: var(--secondary-text);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 30px;
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            color: var(--primary);
+            margin-top: 0;
+        }
+
+        p {
+            line-height: 1.6;
+            color: #d1d1d1;
+            font-size: 15px;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--secondary-text);
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 12px;
+            color: var(--secondary-text);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">YETCOIN</div>
+        <div class="tagline">Next-Gen Mining</div>
+    </div>
+
+    <div class="card">
+        <h2>ℹ️ About The Project</h2>
+        <p>
+            YETCOIN is a revolutionized decentralized mining platform designed to empower everyday users. 
+            We utilize a unique Proof-of-Engagement (PoE) mechanism that rewards users for their interaction and community contributions.
+        </p>
+        <p>
+            Our mission is to bridge the gap between complex blockchain technology and the general public, making crypto accessible to everyone with just a smartphone.
+        </p>
+
+        <div class="stat-grid">
+            <div class="stat-item">
+                <span class="stat-value">1M+</span>
+                <span class="stat-label">Active Miners</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">100%</span>
+                <span class="stat-label">Secure Flow</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2026 YETCOIN Foundation. All rights reserved.
+    </div>
+
+    <script>
+        // Init Telegram WebApp
+        window.Telegram.WebApp.ready();
+        window.Telegram.WebApp.expand();
+        window.Telegram.WebApp.setHeaderColor('#0B0B0F');
+        window.Telegram.WebApp.setBackgroundColor('#0B0B0F');
+    </script>
+</body>
+</html>

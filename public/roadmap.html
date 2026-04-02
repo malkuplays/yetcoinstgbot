@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FFD700;
+            --background: #0B0B0F;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text: #FFFFFF;
+            --secondary-text: #A0A0A0;
+            --line-color: rgba(255, 215, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            margin-top: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .roadmap-container {
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Timeline vertical line */
+        .roadmap-container::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--line-color);
+        }
+
+        .roadmap-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 20px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Timeline dot */
+        .roadmap-item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 4px solid var(--background);
+            box-shadow: 0 0 10px var(--primary);
+            z-index: 10;
+        }
+
+        .roadmap-quarter {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            color: var(--primary);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .roadmap-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .roadmap-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+
+        .roadmap-card ul {
+            margin: 0;
+            padding-left: 15px;
+            list-style-type: square;
+        }
+
+        .roadmap-card li {
+            font-size: 13px;
+            color: #d1d1d1;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+
+        .status {
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .status-done { background: rgba(0, 255, 0, 0.2); color: #00FF00; }
+        .status-inprogress { background: rgba(255, 215, 0, 0.2); color: var(--primary); }
+        .status-next { background: rgba(255, 255, 255, 0.1); color: var(--secondary-text); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .roadmap-item:nth-child(1) { animation-delay: 0.1s; }
+        .roadmap-item:nth-child(2) { animation-delay: 0.3s; }
+        .roadmap-item:nth-child(3) { animation-delay: 0.5s; }
+        .roadmap-item:nth-child(4) { animation-delay: 0.7s; }
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">2026 ROADMAP</div>
+    </div>
+
+    <div class="roadmap-container">
+        <!-- Q1 -->
+        <div class="roadmap-item">
+            <span class="roadmap-quarter">Q1 2026 <span class="status status-done">COMPLETED</span></span>
+            <div class="roadmap-card">
+                <h3>Foundation Phase</h3>
+                <ul>
+                    <li>Project YETCOIN conceptualization</li>
+                    <li>Core mining engine development</li>
+                    <li>Security architecture implementation</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="roadmap-item">
+            <span class="roadmap-quarter">Q2 2026 <span class="status status-inprogress">LAUNCH</span></span>
+            <div class="roadmap-card">
+                <h3>Telegram Ecosystem Expansion</h3>
+                <ul>
+                    <li>Official Bot launch & public beta</li>
+                    <li>Community building & referrals</li>
+                    <li>Dynamic mining tiers rollout</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="roadmap-item">
+            <span class="roadmap-quarter">Q3 2026 <span class="status status-next">UPCOMING</span></span>
+            <div class="roadmap-card">
+                <h3>Tokenomics & Utility</h3>
+                <ul>
+                    <li>Proof-of-Engagement (PoE) full release</li>
+                    <li>Internal marketplace for miners</li>
+                    <li>Partnership ecosystem launch</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="roadmap-item">
+            <span class="roadmap-quarter">Q4 2026 <span class="status status-next">GOAL</span></span>
+            <div class="roadmap-card">
+                <h3>Decentralized Future</h3>
+                <ul>
+                    <li>YETCOIN TGE (Token Generation Event)</li>
+                    <li>Major exchange listings</li>
+                    <li>DAO governance for community</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.Telegram.WebApp.ready();
+        window.Telegram.WebApp.expand();
+        window.Telegram.WebApp.setHeaderColor('#0B0B0F');
+        window.Telegram.WebApp.setBackgroundColor('#0B0B0F');
+    </script>
+</body>
+</html>

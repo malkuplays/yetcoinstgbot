@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FFD700;
+            --background: #0B0B0F;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text: #FFFFFF;
+            --secondary-text: #A0A0A0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            justify-content: center;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .contact-container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+            animation: bounceIn 0.8s ease-out;
+        }
+
+        .contact-card h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            color: var(--primary);
+            margin-top: 0;
+        }
+
+        .contact-card p {
+            color: var(--secondary-text);
+            font-size: 14px;
+        }
+
+        .social-links {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            color: white;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+
+        .social-btn:hover {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .social-btn:active {
+            transform: scale(0.98);
+        }
+
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            70% { opacity: 1; transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: var(--secondary-text);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">GET IN TOUCH</div>
+    </div>
+
+    <div class="contact-container">
+        <div class="contact-card">
+            <h2>📞 Contact Support</h2>
+            <p>Our team is available 24/7 to help you with your mining questions.</p>
+
+            <div class="social-links">
+                <a href="https://t.me/yetcoin_support" class="social-btn">
+                    ✈️ Telegram Support
+                </a>
+                <a href="https://t.me/yetcoin_community" class="social-btn">
+                    ✈️ Join Community
+                </a>
+                <a href="mailto:support@yetcoin.io" class="social-btn">
+                    📧 Email Support
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Official YETCOIN Bot Configuration
+    </div>
+
+    <script>
+        window.Telegram.WebApp.ready();
+        window.Telegram.WebApp.expand();
+        window.Telegram.WebApp.setHeaderColor('#0B0B0F');
+        window.Telegram.WebApp.setBackgroundColor('#0B0B0F');
+    </script>
+</body>
+</html>

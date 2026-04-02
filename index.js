@@ -15,6 +15,8 @@ if (!BOT_TOKEN) {
 
 const bot = new Telegraf(BOT_TOKEN);
 
+const path = require('path');
+
 // --- Telegram Bot Logic ---
 
 // Start Command
@@ -22,38 +24,26 @@ bot.start((ctx) => {
     const welcomeMessage = `
 👋 *Welcome to YETCOIN!*
 
-Welcome to the official YETCOIN bot. Use the menu below to navigate.
+Explore the interactive sections below to learn more about our mining ecosystem.
     `;
+    
+    // Construct URLs using the provided BOT_URL or a fallback
+    const baseUrl = process.env.BOT_URL || 'https://yetcoinstgbot.onrender.com';
     
     return ctx.replyWithMarkdownV2(
         welcomeMessage.replace(/[.!#-]/g, '\\$&'),
         Markup.inlineKeyboard([
-            [Markup.button.callback('❓ How to Mine', 'how_to_mine')],
-            [Markup.button.callback('ℹ️ About YETCOIN', 'about')],
-            [Markup.button.callback('📞 Contact Us', 'contact_us'), Markup.button.callback('👨‍💻 Support', 'support')]
+            [Markup.button.webApp('⛏️ Mine YETC', RENDER_URL || 'https://yetcoins.render.com')],
+            [Markup.button.webApp('❓ How to Mine', `${baseUrl}/how-to-mine.html`)],
+            [Markup.button.webApp('ℹ️ About Us', `${baseUrl}/about.html`)],
+            [Markup.button.webApp('🗺️ Roadmap', `${baseUrl}/roadmap.html`)],
+            [Markup.button.webApp('📞 Contact Us', `${baseUrl}/contact.html`)]
         ])
     );
 });
 
-// Button Handlers
-bot.action('how_to_mine', (ctx) => {
-    return ctx.reply('⛏️ *How to Mine YETCOIN:*\n\n1. Launch the web app.\n2. Tap the screen to generate coins.\n3. Upgrade your tiers to earn more faster!', { parse_mode: 'Markdown' });
-});
-
-bot.action('about', (ctx) => {
-    return ctx.reply('💎 *About YETCOIN:*\n\nYETCOIN is a next-generation crypto project focused on community growth and decentralized mining rewards.', { parse_mode: 'Markdown' });
-});
-
-bot.action('contact_us', (ctx) => {
-    return ctx.reply('📞 *Contact Us:*\n\nEmail: contact@yetcoin.io\nTelegram: @yetcoin_official', { parse_mode: 'Markdown' });
-});
-
-bot.action('support', (ctx) => {
-    return ctx.reply('👨‍💻 *Support:*\n\nIf you need help, please contact our support team at @yetcoin_support', { parse_mode: 'Markdown' });
-});
-
 // Help Command
-bot.help((ctx) => ctx.reply('Send /start to open the YETCOIN menu.'));
+bot.help((ctx) => ctx.reply('Send /start to open the YETCOIN interactive menu.'));
 
 // Launch Bot
 console.log('📡 Attempting to connect to Telegram API...');
@@ -93,11 +83,14 @@ if (RENDER_URL) {
     setInterval(pingService, PING_INTERVAL_MS);
 }
 
-// --- Health Check Server ---
+// --- Health Check & Static File Server ---
 
 const app = express();
-app.get('/', (req, res) => res.send('YETCOIN Bot Alive 🚀'));
-app.listen(PORT, () => console.log(`🌍 Health check server listening on port ${PORT}`));
+// Serve static files from the 'public' folder
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/health', (req, res) => res.send('YETCOIN Bot Alive 🚀'));
+app.listen(PORT, () => console.log(`🌍 Health check & static server listening on port ${PORT}`));
 
 // Graceful stop
 process.once('SIGINT', () => {
