@@ -2,10 +2,12 @@ require('dotenv').config();
 const { Telegraf, Markup } = require('telegraf');
 const axios = require('axios');
 const express = require('express');
+const path = require('path');
 
 // Environment Variables
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const RENDER_URL = process.env.RENDER_URL;
+const BOT_URL = process.env.BOT_URL || 'https://yetcoinstgbot.onrender.com';
 const PORT = process.env.PORT || 3000;
 
 if (!BOT_TOKEN) {
@@ -15,29 +17,33 @@ if (!BOT_TOKEN) {
 
 const bot = new Telegraf(BOT_TOKEN);
 
-const path = require('path');
-
 // --- Telegram Bot Logic ---
 
 // Start Command
 bot.start((ctx) => {
-    const welcomeMessage = `
+    const welcomeText = `
 👋 *Welcome to YETCOIN!*
 
 Explore the interactive sections below to learn more about our mining ecosystem.
     `;
     
     // Construct URLs using the provided BOT_URL or a fallback
-    const baseUrl = process.env.BOT_URL || 'https://yetcoinstgbot.onrender.com';
+    const baseUrl = BOT_URL;
     
+    // Improved Grid-like Keyboard Layout
     return ctx.replyWithMarkdownV2(
-        welcomeMessage.replace(/[.!#-]/g, '\\$&'),
+        welcomeText.replace(/[.!#-]/g, '\\$&'),
         Markup.inlineKeyboard([
-            [Markup.button.webApp('⛏️ Mine YETC', RENDER_URL || 'https://yetcoins.render.com')],
-            [Markup.button.webApp('❓ How to Mine', `${baseUrl}/how-to-mine.html`)],
-            [Markup.button.webApp('ℹ️ About Us', `${baseUrl}/about.html`)],
-            [Markup.button.webApp('🗺️ Roadmap', `${baseUrl}/roadmap.html`)],
-            [Markup.button.webApp('📞 Contact Us', `${baseUrl}/contact.html`)]
+            [Markup.button.webApp('⛏️ Mine YETC Tokens', RENDER_URL || 'https://yetcoins.render.com')],
+            [
+                Markup.button.webApp('❓ How-to', `${baseUrl}/how-to-mine.html`),
+                Markup.button.webApp('ℹ️ About Us', `${baseUrl}/about.html`)
+            ],
+            [
+                Markup.button.webApp('🗺️ Roadmap', `${baseUrl}/roadmap.html`),
+                Markup.button.webApp('📞 Contact Us', `${baseUrl}/contact.html`)
+            ],
+            [Markup.button.url('👥 Join Community', 'https://t.me/yetcoin_ann')] // Added placeholder; user can change link
         ])
     );
 });
@@ -50,47 +56,60 @@ console.log('📡 Attempting to connect to Telegram API...');
 bot.launch()
     .then(() => console.log('🚀 YETCOIN Bot is successfully running and connected.'))
     .catch((err) => {
-        console.error('❌ Bot launch failed!');
-        console.error('Error Code:', err.code);
-        console.error('Error Message:', err.message);
-        if (err.code === 'ETIMEDOUT') {
-            console.error('💡 This usually means your network is blocking api.telegram.org or is too slow. Try using a VPN or checking your internet connection.');
-        }
+        console.error('❌ Bot launch failed!', err.message);
     });
 
-// --- Auto-Ping Logic (Every 52 Seconds) ---
+// --- Enhanced Auto-Ping Logic (To bypass Render.com Sleep) ---
 
-const PING_INTERVAL_MS = 52 * 1000;
+const PING_INTERVAL_MINS = 5; 
+const PING_INTERVAL_MS = PING_INTERVAL_MINS * 60 * 1000;
 
 const pingService = async () => {
-    if (!RENDER_URL) {
-        console.warn('⚠️ RENDER_URL not set. Skipping ping.');
+    // We ping the /ping endpoint of both the Bot and the Main App
+    const targets = [
+        `${BOT_URL}/ping`,
+        `${RENDER_URL}/ping`
+    ].filter(url => url.startsWith('http'));
+
+    if (targets.length === 0) {
+        console.warn('⚠️ No valid endpoints for auto-ping configured.');
         return;
     }
     
-    try {
-        console.log(`[${new Date().toLocaleTimeString()}] Pinging ${RENDER_URL}...`);
-        const response = await axios.get(RENDER_URL);
-        console.log(`✅ Success (Status: ${response.status})`);
-    } catch (error) {
-        console.error(`❌ Ping failed: ${error.message}`);
+    console.log(`\n[${new Date().toLocaleTimeString()}] 💓 Heartbeat: Pinging active services...`);
+    
+    for (const url of targets) {
+        try {
+            const start = Date.now();
+            const res = await axios.get(url, { timeout: 10000 });
+            const duration = Date.now() - start;
+            console.log(`✅ ${url} -> Status: ${res.status} (${duration}ms)`);
+        } catch (error) {
+            console.error(`❌ Ping failed for ${url}: ${error.message}`);
+        }
     }
+    console.log(`🕒 Next heartbeat in ${PING_INTERVAL_MINS} minutes.\n`);
 };
 
-// Start Pinging
-if (RENDER_URL) {
-    console.log(`🔔 Auto-ping enabled for ${RENDER_URL} every 52 seconds.`);
-    setInterval(pingService, PING_INTERVAL_MS);
-}
+// Initial ping and then interval
+setTimeout(pingService, 10000); // 10s after startup
+setInterval(pingService, PING_INTERVAL_MS);
 
 // --- Health Check & Static File Server ---
 
 const app = express();
-// Serve static files from the 'public' folder
+
+// Serve static files (TWA info pages)
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Specific Heartbeat/Ping Endpoints for Render
+app.get('/ping', (req, res) => res.json({ status: 'ok', timestamp: new Date().toISOString() }));
 app.get('/health', (req, res) => res.send('YETCOIN Bot Alive 🚀'));
-app.listen(PORT, () => console.log(`🌍 Health check & static server listening on port ${PORT}`));
+
+app.listen(PORT, () => {
+    console.log(`🌍 Web Server: Listening on port ${PORT}`);
+    console.log(`📍 Public URL: ${BOT_URL}`);
+});
 
 // Graceful stop
 process.once('SIGINT', () => {
