@@ -43,7 +43,7 @@ Explore the interactive sections below to learn more about our mining ecosystem.
                 Markup.button.webApp('🗺️ Roadmap', `${baseUrl}/roadmap.html`),
                 Markup.button.webApp('📞 Contact Us', `${baseUrl}/contact.html`)
             ],
-            [Markup.button.url('👥 Join Community', 'https://t.me/yetcoin_ann')] // Added placeholder; user can change link
+            [Markup.button.url('👥 Join Community', 'https://t.me/yetcoins')]
         ])
     );
 });
